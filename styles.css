@@ -5,7 +5,7 @@
     --font-principal: "Petit Formal Script", cursive;
     --font-menu: "Cormorant", serif;
     --color-trasero: rgb(238, 218, 205);
-    --color-pagina: #e0ddae; 
+    --color-pagina: #cad27dad; 
     --color-categoria: #2c3e50;
     --color-h1: #5d4037;
     --color-acentos: #8d6e63d8;
@@ -120,7 +120,7 @@ header h1 {
 
 .contacto-ubicacion p {
     margin: 10px 0;
-    font-size: 1.2rem;
+    font-size: 1.35rem;
 }
 
 .contacto-ubicacion a {
