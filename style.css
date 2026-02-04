@@ -32,8 +32,8 @@ header h1{
 }
 
 main {
-    max-width: 500px;
-    display:grid;
+    max-width: 900px; /* Aumentado para permitir que las subcategorías quepan lado a lado */
+    display: grid;
     gap: 20px;
     margin: auto;
     border-radius: 2rem;
@@ -55,39 +55,43 @@ main {
 .secciones{
     font-size: 1.2rem;
     background-color: var(--color-subcategoria);
-    padding: 15px 0px 10px 0px;
+    padding: 15px 5px;
     border-radius: 2rem;
     margin-bottom: 1rem;
+    /* Corrección de alineación: */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 15px;
 }
 
 .subcategoria {
-    max-width: 300px;
-    margin: auto;
-    padding: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1.25rem;
+    flex: 1 1 300px; /* Permite que crezcan y se ajusten, mínimo 300px */
+    max-width: 400px;
+    padding: 0.8rem;
+    margin: 5px;
     background-color: var(--color-submenu);
     border-radius: 2rem;
     box-shadow: 1px 1px 8px white;
-    /* 1. Transición suave para que no sea un salto brusco */
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     cursor: pointer;
+    text-align: left; /* Opcional: mejora la lectura de la lista */
 }
 
 .subcategoria:active {
-    /* Mueve el botón 4 píxeles hacia abajo */
     transform: translate(-3px, 5px);
-    /* Reducimos la sombra para dar efecto de profundidad */
     box-shadow: 1px 1px 10px white;
 }
 
 .subcategoria summary {
-    padding: 10px 0; /* Ajusta el espacio arriba/abajo, pero 0 a los lados */
-    margin: 0;
+    padding: 10px 0;
+    margin: 5px;
     cursor: pointer;
-    list-style: none; /* En algunos navegadores quita la flecha por defecto */
+    list-style: none;
+    text-align: center;
+    font-weight: bold;
 }
-
 
 .subcategoria ul {
     margin: 0;
@@ -124,11 +128,8 @@ main {
 
 .contacto-ubicacion p{
     font-size: 1.2rem;
-    /* text-decoration: underline solid 1px;
-    text-underline-offset: 2px; */
 }
 
-/* Estilo base (ya lo tienes, solo asegúrate de añadir la transición) */
 .contacto-ubicacion button {
     font-family: var(--font-menu);
     font-size: 1.1rem;
@@ -139,16 +140,11 @@ main {
     width: 12rem;
     height: 3.2rem;
     box-shadow: 5px 5px 20px black;
-    
-    /* 1. Transición suave para que no sea un salto brusco */
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     cursor: pointer;
 }
 
-/* 2. Efecto cuando se hace CLICK */
 .contacto-ubicacion button:active {
-    /* Mueve el botón 4 píxeles hacia abajo */
     transform: translate(-3px, 5px);
-    /* Reducimos la sombra para dar efecto de profundidad */
     box-shadow: 1px 1px 10px black;
 }
