@@ -5,7 +5,7 @@
     --font-principal: "Petit Formal Script", cursive;
     --font-menu: "Cormorant", serif;
     --color-pagina-principal: #3f0202;
-    --color-titulo: #fe4949;
+    --color-titulo: #d37d7d;
     --color-categoria: #rgb(251, 128, 128);
     --color-subcategoria: #bb842ca0;
     --color-titulo-categoria: #8df2e5a0;
@@ -27,7 +27,7 @@ body {
 header h1{
     font-family: var(--font-principal);
     font-size: 3.3rem;
-    text-shadow: 3px 3px 3px #ffffff;
+    text-shadow: 3px 3px 15px #ffab77;
     color: var(--color-titulo);
 }
 
@@ -65,9 +65,20 @@ main {
     margin: auto;
     padding: 1rem;
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     background-color: var(--color-submenu);
     border-radius: 2rem;
+    box-shadow: 1px 1px 8px white;
+    /* 1. Transición suave para que no sea un salto brusco */
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    cursor: pointer;
+}
+
+.subcategoria:active {
+    /* Mueve el botón 4 píxeles hacia abajo */
+    transform: translate(-3px, 5px);
+    /* Reducimos la sombra para dar efecto de profundidad */
+    box-shadow: 1px 1px 10px white;
 }
 
 .subcategoria summary {
@@ -76,6 +87,7 @@ main {
     cursor: pointer;
     list-style: none; /* En algunos navegadores quita la flecha por defecto */
 }
+
 
 .subcategoria ul {
     margin: 0;
@@ -89,7 +101,7 @@ main {
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgb(255, 255, 255,0.25);
     font-size: 1.1rem;
 }
 
