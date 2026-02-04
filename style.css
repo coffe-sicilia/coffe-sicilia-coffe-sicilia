@@ -4,7 +4,7 @@
 :root {
     --font-principal: "Petit Formal Script", cursive;
     --font-menu: "Cormorant", serif;
-    --color-pagina-principal: #3f0202;
+    --color-pagina-principal: #3f0202da;
     --color-titulo: #d37d7d;
     --color-categoria: #rgb(251, 128, 128);
     --color-subcategoria: #bb842ca0;
