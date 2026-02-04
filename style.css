@@ -24,7 +24,7 @@ body {
     color: white;
 }
 
-header h1{
+header h1 {
     font-family: var(--font-principal);
     font-size: 3.3rem;
     text-shadow: 3px 3px 15px #ffab77;
@@ -32,15 +32,14 @@ header h1{
 }
 
 main {
-    max-width: 900px; /* Aumentado para permitir que las subcategorías quepan lado a lado */
+    max-width: 900px;
     display: grid;
     gap: 20px;
     margin: auto;
     border-radius: 2rem;
 }
 
-/*INICIO DEL BLOQUE GLOBAL DEL MENU Y SUBMENUS*/
-.categoria{
+.categoria {
     margin: center;
     padding-bottom: 1rem;
 }
@@ -51,14 +50,12 @@ main {
     border-radius: 2rem;
 }
 
-/*INICIO DEL BLOQUE DE SUBCATEGORIAS POR SECCIONES*/
-.secciones{
+.secciones {
     font-size: 1.2rem;
     background-color: var(--color-subcategoria);
     padding: 15px 5px;
     border-radius: 2rem;
     margin-bottom: 1rem;
-    /* Corrección de alineación: */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -67,16 +64,15 @@ main {
 }
 
 .subcategoria {
-    flex: 1 1 300px; /* Permite que crezcan y se ajusten, mínimo 300px */
+    flex: 1 1 300px;
     max-width: 400px;
-    padding: 0.8rem;
+    padding: 1rem;
     margin: 5px;
     background-color: var(--color-submenu);
     border-radius: 2rem;
     box-shadow: 1px 1px 8px white;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     cursor: pointer;
-    text-align: left; /* Opcional: mejora la lectura de la lista */
 }
 
 .subcategoria:active {
@@ -89,7 +85,6 @@ main {
     margin: 5px;
     cursor: pointer;
     list-style: none;
-    text-align: center;
     font-weight: bold;
 }
 
@@ -97,19 +92,42 @@ main {
     margin: 0;
     padding: 15px;
     list-style: none;
-    background-color: var(--color-pagina);
     border-radius: 1rem;
 }
 
 .subcategoria li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 8px 0;
-    border-bottom: 1px solid rgb(255, 255, 255,0.25);
+    border-bottom: 1px solid rgb(255, 255, 255, 0.25);
     font-size: 1.1rem;
+    text-align: left;
 }
 
-/*INICIO DE TODO EL BLOQUE DE LA UBICACION DEL RESTAURANTE*/
+/* --- SOLUCIÓN PARA TISANAS CON DOBLE PRECIO --- */
+/* Forzamos que los precios ocupen un ancho fijo a la derecha */
+.subcategoria li span:nth-child(2),
+.subcategoria li span:nth-child(3) {
+    min-width: 60px;
+    text-align: right;
+    margin-left: 10px;
+}
+
+/* Alineación especial para el encabezado de Tisanas (FRIAS // FRAPEADAS) */
+.subcategoria li span:nth-child(2) span {
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* Asegura que el nombre del producto tome el espacio restante */
+.subcategoria li span:first-child {
+    flex-grow: 1;
+}
+
+/* ---------------------------------------------- */
+
 .contacto-ubicacion {
     max-width: 500px;
     margin: 2rem auto;
@@ -126,7 +144,7 @@ main {
     color: rgb(203, 153, 153);
 }
 
-.contacto-ubicacion p{
+.contacto-ubicacion p {
     font-size: 1.2rem;
 }
 
