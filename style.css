@@ -1,168 +1,244 @@
-@import url('https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap');
 
 :root {
     --font-principal: "Petit Formal Script", cursive;
     --font-menu: "Cormorant", serif;
-    --color-pagina-principal: #3f0202da;
-    --color-titulo: #d37d7d;
-    --color-categoria: #rgb(251, 128, 128);
-    --color-subcategoria: #bb842ca0;
-    --color-titulo-categoria: #8df2e5a0;
-    --color-contact0: rgba(47, 49, 103, 0.841);
-    --color-contact1: rgba(206, 70, 179, 0.699);
-    --color-submenu: rgba(0, 0, 0, 0.577);
+    --bg-principal: #6d2926;
+    --color-oro: #d4af37;
+    --color-crema: #fdfaf4;
+    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
-    background-color: var(--color-pagina-principal);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%23fc1200' fill-opacity='0.4' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76zM.07 0h20.1l-.08.07A20.02 20.02 0 0 1 .75 5.25 20.08 20.08 0 0 1 .07 0zm1.94 40h2.53l4.26-4.24v-9.78A17.96 17.96 0 0 0 2 40zm5.38 0h9.8a17.98 17.98 0 0 0 6.67-16.42L7.4 40zm3.43-15.42v9.17l11.62-11.59c-3.97-.5-8.08.3-11.62 2.42zm32.86-.78A18 18 0 0 0 63.85 3.63L43.68 23.8zm7.2-19.17v9.15L62.43 2.22c-3.96-.5-8.05.3-11.57 2.4zm-3.49 2.72c-4.1 4.1-5.81 9.69-5.13 15.03l6.61-6.6V6.02c-.51.41-1 .85-1.48 1.33zM17.18 0H7.42L3.64 3.78A18 18 0 0 0 17.18 0zM2.08 0c-.01.8.04 1.58.14 2.37L4.59 0H2.07z'%3E%3C/path%3E%3C/svg%3E");
+    background-color: var(--bg-principal);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%233a1e1c' fill-opacity='0.2' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76z'/%3E%3C/svg%3E");
     font-family: var(--font-menu);
     text-align: center;
     margin: 0;
     padding: 10px 15px;
-    color: white;
+    color: var(--color-crema);
+    overflow-x: hidden;
 }
 
 header h1 {
     font-family: var(--font-principal);
-    font-size: 3.3rem;
-    text-shadow: 3px 3px 15px #ffab77;
-    color: var(--color-titulo);
+    font-size: 3.5rem;
+    color: var(--color-oro);
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    margin: 1.5rem 0;
 }
 
-main {
-    max-width: 900px;
-    display: grid;
-    gap: 20px;
-    margin: auto;
-    border-radius: 2rem;
-}
-
-.categoria {
-    margin: center;
-    padding-bottom: 1rem;
-}
-
-.categoria h2 {
-    padding: 20px;
-    background-color: var(--color-titulo-categoria);
-    border-radius: 2rem;
-}
-
-.secciones {
-    font-size: 1.2rem;
-    background-color: var(--color-subcategoria);
-    padding: 15px 5px;
-    border-radius: 2rem;
-    margin-bottom: 1rem;
+/* NAVEGACIÓN POR PESTAÑAS (CORREGIDO Y RESPONSIVO) */
+.barra-pestanas {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-start;
-    gap: 15px;
+    flex-wrap: wrap; /* ← ESTO ES LA CLAVE: Permite que los botones bajen a la siguiente fila si no caben */
+    gap: 10px;
+    margin-bottom: 2rem;
+    padding: 5px;
 }
+.barra-pestanas::-webkit-scrollbar { display: none; }
 
-.subcategoria {
-    flex: 1 1 300px;
-    max-width: 400px;
-    padding: 1rem;
-    margin: 5px;
-    background-color: var(--color-submenu);
-    border-radius: 2rem;
-    box-shadow: 1px 1px 8px white;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
+.tab-btn {
+    font-family: var(--font-menu);
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: var(--glass-bg);
+    color: var(--color-crema);
+    border: 1px solid var(--glass-border);
+    padding: 10px 20px;
+    border-radius: 30px;
     cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition-smooth);
 }
 
-.subcategoria:active {
-    transform: translate(-3px, 5px);
-    box-shadow: 1px 1px 10px white;
+.tab-btn:hover, .tab-btn.activo {
+    background: var(--color-oro);
+    color: var(--bg-principal);
+    border-color: var(--color-oro);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
 }
 
-.subcategoria summary {
-    padding: 10px 0;
-    margin: 5px;
-    cursor: pointer;
-    list-style: none;
-    font-weight: bold;
+/* VISIBILIDAD DE PESTAÑAS */
+.categoria-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: var(--transition-smooth);
 }
 
-.subcategoria ul {
-    margin: 0;
-    padding: 15px;
-    list-style: none;
-    border-radius: 1rem;
+.categoria-content.activo {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.subcategoria li {
+/* DISEÑO DE ACORDEÓN (SUB-MENÚS) */
+.lista-acordeon {
+    max-width: 650px;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid rgb(255, 255, 255, 0.25);
-    font-size: 1.1rem;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tarjeta-platillo {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    overflow: hidden; /* Corta el contenido cuando está cerrado */
+    transition: var(--transition-smooth);
     text-align: left;
 }
 
-/* --- SOLUCIÓN PARA TISANAS CON DOBLE PRECIO --- */
-/* Forzamos que los precios ocupen un ancho fijo a la derecha */
-.subcategoria li span:nth-child(2),
-.subcategoria li span:nth-child(3) {
-    min-width: 60px;
-    text-align: right;
+/* Estilo para la cabecera del acordeón */
+.tarjeta-platillo summary {
+    padding: 1.2rem 1.5rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--color-oro);
+    cursor: pointer;
+    list-style: none; /* Elimina flecha nativa */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: var(--transition-smooth);
+}
+
+/* Quita la flecha por defecto en navegadores basados en Webkit Safari/Chrome */
+.tarjeta-platillo summary::-webkit-details-marker {
+    display: none;
+}
+
+.tarjeta-platillo summary:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Animación de la flecha manual */
+.flecha {
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+    opacity: 0.7;
+}
+
+/* Cuando el detalles está abierto ([open]), rotamos la flecha e iluminamos el fondo */
+.tarjeta-platillo[open] {
+    border-color: rgba(212, 175, 55, 0.3);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.tarjeta-platillo[open] .flecha {
+    transform: rotate(180deg);
+    color: var(--color-oro);
+}
+
+/* Bloque contenedor del menú interno */
+.contenido-desplegable {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.nota-sub {
+    font-size: 0.8rem;
+    font-weight: normal;
+    opacity: 0.6;
     margin-left: 10px;
 }
 
-/* Alineación especial para el encabezado de Tisanas (FRIAS // FRAPEADAS) */
-.subcategoria li span:nth-child(2) span {
-    font-size: 0.8rem;
+/* LISTADO INTERNO DE PLATILLOS */
+.contenido-desplegable ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contenido-desplegable li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 1.2rem;
+}
+.contenido-desplegable li:last-child { border: none; }
+
+.tarjeta-extras summary {
+    color: #e2c074;
+}
+
+/* ALINEACIÓN TISANAS DOS PRECIOS */
+.header-precios {
+    font-size: 0.85rem;
     font-weight: bold;
-    display: inline-block;
+    color: var(--color-oro);
+    opacity: 0.8;
+}
+.col-precio {
+    min-width: 80px;
+    text-align: right;
+}
+.contenido-desplegable li span:first-child { flex-grow: 1; }
+.contenido-desplegable li span:nth-child(2), 
+.contenido-desplegable li span:nth-child(3) {
+    min-width: 80px;
+    text-align: right;
+    font-weight: 600;
 }
 
-/* Asegura que el nombre del producto tome el espacio restante */
-.subcategoria li span:first-child {
-    flex-grow: 1;
+/* ANIMACIÓN INTERNA */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------------------------------------------- */
-
+/* UBICACIÓN */
 .contacto-ubicacion {
-    max-width: 500px;
-    margin: 2rem auto;
-    background-color: var(--color-contact1);
-    border-radius: 2rem;
+    max-width: 600px;
+    margin: 4rem auto 2rem auto;
+    background: var(--glass-bg);
+    background-color: #e2bf7459;
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
 }
 
 .contacto-ubicacion h2 {
-    padding-top: 15px;
-    padding: 20px;
-    font-size: 2.1rem;
-    background-color: var(--color-contact0);
-    border-radius: 2rem;
-    color: rgb(203, 153, 153);
+    color: var(--color-oro);
+    font-size: 1.8rem;
+    margin-top: 0;
 }
 
-.contacto-ubicacion p {
+.info-detalles p {
     font-size: 1.2rem;
+    margin: 10px 0;
+    opacity: 0.9;
 }
+.info-detalles a { color: var(--color-crema); text-decoration: none; }
 
 .contacto-ubicacion button {
     font-family: var(--font-menu);
     font-size: 1.1rem;
-    background-color: #fe4949c3;
-    border: solid rgba(255, 255, 255, 0.425);
-    margin-bottom: 20px;
-    border-radius: 2rem;
-    width: 12rem;
-    height: 3.2rem;
-    box-shadow: 5px 5px 20px black;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    font-weight: bold;
+    background: transparent;
+    color: var(--color-oro);
+    border: 2px solid var(--color-oro);
+    padding: 12px 30px;
+    border-radius: 30px;
     cursor: pointer;
+    margin-top: 1.5rem;
+    transition: var(--transition-smooth);
 }
 
-.contacto-ubicacion button:active {
-    transform: translate(-3px, 5px);
-    box-shadow: 1px 1px 10px black;
+.contacto-ubicacion button:hover {
+    background: var(--color-oro);
+    color: var(--bg-principal);
+    box-shadow: 0 5px 20px rgba(212,175,55,0.4);
 }
