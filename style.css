@@ -12,6 +12,16 @@
     --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* --- ESTILOS GLOBALES --- */
+* {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
 body {
     background-color: var(--bg-principal);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%233a1e1c' fill-opacity='0.2' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76z'/%3E%3C/svg%3E");
@@ -24,6 +34,7 @@ body {
 }
 
 header h1 {
+    text-align: center;
     font-family: var(--font-principal);
     font-size: 3.5rem;
     color: var(--color-oro);
