@@ -1,81 +1,197 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap');
 
+/* ==========================================================================
+   1. VARIABLES Y TEORÍA DEL COLOR (3 TEMAS CON PATRÓN DE CAFÉ)
+   ========================================================================== */
+
 :root {
     --font-principal: "Petit Formal Script", cursive;
     --font-menu: "Cormorant", serif;
-    --bg-principal: #6d2926;
-    --color-oro: #d4af37;
-    --color-crema: #fdfaf4;
-    --glass-bg: rgba(255, 255, 255, 0.04);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* TEMA CLÁSICO: Armonía Cálida Tradicional */
+    --bg-principal: #5c1d1b;
+    --bg-tarjetas: rgba(233, 180, 130, 0.233);
+    --border-tarjetas: rgba(255, 255, 255, 0.08);
+    --color-primario: #d4af37;       
+    --color-texto: #fdfaf4;          
+    --color-extras: #e2c074;         
+    --shadow-btn: rgba(212, 175, 55, 0.35);
+    --shadow-tarjeta: rgba(0, 0, 0, 0.3);
+    --bg-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%233a1e1c' fill-opacity='0.25' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76z'/%3E%3C/svg%3E");
+    
+    /* TIEMPO OPTIMIZADO PARA MAYOR RESPUESTA UX */
+    --transition-smooth: all 0.25s ease-out;
 }
 
-/* --- ESTILOS GLOBALES --- */
+/* TEMA PROFUNDO: Bloques Sólidos y Contraste Complementario */
+body[data-theme="profundo"] {
+    --bg-principal: #0f0f1e;
+    --bg-tarjetas: #262644;          
+    --border-tarjetas: #222244;
+    --color-primario: #ff6b35;       
+    --color-texto: #e2e2ec;          
+    --color-extras: #00a8cc;         
+    --shadow-btn: rgba(255, 107, 53, 0.4);
+    --shadow-tarjeta: rgba(0, 0, 0, 0.6);
+    --bg-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%23000000' fill-opacity='0.4' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76z'/%3E%3C/svg%3E");
+}
+
+/* TEMA NEÓN: Cyberpunk Café */
+body[data-theme="neon"] {
+    --bg-principal: #050508;
+    --bg-tarjetas: rgba(105, 80, 139, 0.281);
+    --border-tarjetas: #00f0ff;      
+    --color-primario: #ff007f;       
+    --color-texto: #ffffff;
+    --color-extras: #00f0ff;
+    --shadow-btn: rgba(0, 240, 255, 0.5);
+    --shadow-tarjeta: rgba(255, 0, 127, 0.25);
+    --bg-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%2300f0ff' fill-opacity='0.08' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76z'/%3E%3C/svg%3E");
+}
+
+/* ==========================================================================
+   2. ESTILOS BASE Y SELECTOR DE TEMAS
+   ========================================================================== */
 * {
     -webkit-tap-highlight-color: transparent;
-    outline: none;
+    /* CORRECCIÓN A11Y: outline:none global suprimía el foco de teclado para
+       todos los elementos interactivos, rompiendo la navegación accesible.
+       Se elimina del reset global y se reemplaza por :focus-visible selectivo
+       sólo donde el diseño lo requiere (elementos con estilos propios de foco). */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Suprime el anillo de foco nativo SÓLO en elementos que ya tienen
+   estilos hover/activo suficientemente visibles. Se conserva para teclado. */
+.tab-btn:focus:not(:focus-visible),
+.theme-btn:focus:not(:focus-visible),
+.tarjeta-platillo summary:focus:not(:focus-visible),
+.boton-mapa:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Foco de teclado visible y consistente con la paleta del tema */
+.tab-btn:focus-visible,
+.theme-btn:focus-visible,
+.tarjeta-platillo summary:focus-visible,
+.boton-mapa:focus-visible {
+    outline: 2px solid var(--color-primario);
+    outline-offset: 3px;
+}
 
 body {
     background-color: var(--bg-principal);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%233a1e1c' fill-opacity='0.2' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76z'/%3E%3C/svg%3E");
+    background-image: var(--bg-pattern);
     font-family: var(--font-menu);
     text-align: center;
-    margin: 0;
-    padding: 10px 15px;
-    color: var(--color-crema);
+    padding: 10px 15px 40px 15px;
+    color: var(--color-texto);
     overflow-x: hidden;
+    transition: background 0.12s ease, color 0.1s ease;
 }
 
-header h1 {
-    text-align: center;
-    font-family: var(--font-principal);
-    font-size: 3.5rem;
-    color: var(--color-oro);
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-    margin: 1.5rem 0;
-}
-
-/* NAVEGACIÓN POR PESTAÑAS (CORREGIDO Y RESPONSIVO) */
-.barra-pestanas {
+.selector-temas {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* ← ESTO ES LA CLAVE: Permite que los botones bajen a la siguiente fila si no caben */
-    gap: 10px;
-    margin-bottom: 2rem;
-    padding: 5px;
+    gap: 12px;
+    margin: 15px 0 5px 0;
 }
-.barra-pestanas::-webkit-scrollbar { display: none; }
 
-.tab-btn {
-    font-family: var(--font-menu);
-    font-size: 1.2rem;
-    font-weight: 600;
-    background: var(--glass-bg);
-    color: var(--color-crema);
-    border: 1px solid var(--glass-border);
-    padding: 10px 20px;
-    border-radius: 30px;
+.theme-btn {
+    background: var(--bg-tarjetas);
+    color: var(--color-texto);
+    border: 1px solid var(--border-tarjetas);
+    padding: 6px 16px;
+    border-radius: 20px;
     cursor: pointer;
-    white-space: nowrap;
+    font-family: var(--font-menu);
+    font-size: 0.95rem;
+    font-weight: 600;
     transition: var(--transition-smooth);
 }
 
-.tab-btn:hover, .tab-btn.activo {
-    background: var(--color-oro);
+.theme-btn:hover, .theme-btn.activo {
+    background: var(--color-primario);
     color: var(--bg-principal);
-    border-color: var(--color-oro);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    border-color: var(--color-primario);
+    box-shadow: 0 0 12px var(--shadow-btn);
+    transform: translateY(-1px);
 }
 
-/* VISIBILIDAD DE PESTAÑAS */
+/* ==========================================================================
+   3. ANIMACIONES Y HEADER
+   ========================================================================== */
+@keyframes floatGlow {
+    0% { transform: translateY(0px) scale(1); text-shadow: 0 0 8px var(--color-primario); }
+    50% { transform: translateY(-8px) scale(1.02); text-shadow: 0 0 20px var(--color-primario), 0 0 5px var(--color-texto); }
+    100% { transform: translateY(0px) scale(1); text-shadow: 0 0 8px var(--color-primario); }
+}
+
+header h1.titulo-animado {
+    text-align: center;
+    font-family: var(--font-principal);
+    font-size: 3.6rem;
+    color: var(--color-primario);
+    margin: 1.8rem 0;
+    animation: floatGlow 1.8s ease-in-out infinite;
+    user-select: none;
+}
+
+/* ==========================================================================
+   4. BOTONES PRINCIPALES (SUBMENÚS)
+   ========================================================================== */
+.barra-pestanas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    gap: 14px;
+    margin-bottom: 2.5rem;
+    padding: 5px;
+}
+
+.tab-btn {
+    font-family: var(--font-menu);
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: var(--bg-tarjetas);
+    color: var(--color-texto);
+    border: 1px solid var(--border-tarjetas);
+    padding: 12px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: var(--transition-smooth);
+    
+    animation: flotacionBotones 3.5s ease-in-out infinite; /* De 5s a 3.5s */
+}
+
+.tab-btn:nth-child(1) { animation-delay: 0s; }
+.tab-btn:nth-child(2) { animation-delay: 0.3s; }
+.tab-btn:nth-child(3) { animation-delay: 0.6s; }
+.tab-btn:nth-child(4) { animation-delay: 0.9s; }
+
+@keyframes flotacionBotones {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+.tab-btn:hover, .tab-btn.activo {
+    animation-play-state: paused;
+    background: var(--color-primario);
+    color: var(--bg-principal);
+    border-color: var(--color-primario);
+    transform: translateY(-5px) scale(1.05) !important; /* Movimiento más corto y ágil */
+    box-shadow: 0 8px 18px var(--shadow-btn);
+}
+
+/* ==========================================================================
+   5. CONTENEDOR Y ACORDEONES (TIEMPOS ACELERADOS)
+   ========================================================================== */
 .categoria-content {
     display: none;
 }
@@ -84,66 +200,52 @@ header h1 {
     display: block;
 }
 
-/* DISEÑO DE ACORDEÓN (SUB-MENÚS) */
 .lista-acordeon {
     max-width: 650px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
-/* Estado inicial de cada submenú antes de la animación */
 .tarjeta-platillo {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
+    background: var(--bg-tarjetas);
+    border: 1px solid var(--border-tarjetas);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
     overflow: hidden;
     text-align: left;
-    
-    /* Propiedades para el efecto de emergencia */
     opacity: 0;
-    transform: translateY(30px); /* Empujado hacia abajo */
+    transform: translateY(20px) scale(0.98); /* Caída más corta */
+    box-shadow: 0 4px 15px var(--shadow-tarjeta);
     transition: var(--transition-smooth);
 }
 
-/* Clase que aplicará JavaScript para activar la animación de subida */
 .tarjeta-platillo.animar-subida {
     opacity: 1;
-    transform: translateY(0); /* Sube a su posición original */
+    transform: translateY(0) scale(1);
 }
 
-/* --- EFECTO EN CADENA (STAGGER) ---
-   Le damos un retraso progresivo a cada tarjeta cuando la pestaña se activa */
-.categoria-content.activo .tarjeta-platillo:nth-child(1) { transition-delay: 0.05s; }
-.categoria-content.activo .tarjeta-platillo:nth-child(2) { transition-delay: 0.12s; }
-.categoria-content.activo .tarjeta-platillo:nth-child(3) { transition-delay: 0.19s; }
-.categoria-content.activo .tarjeta-platillo:nth-child(4) { transition-delay: 0.26s; }
-.categoria-content.activo .tarjeta-platillo:nth-child(5) { transition-delay: 0.33s; }
-.categoria-content.activo .tarjeta-platillo:nth-child(6) { transition-delay: 0.40s; }
-.categoria-content.activo .tarjeta-platillo:nth-child(7) { transition-delay: 0.47s; }
+/* CORRECCIÓN: Los delays deben aplicarse SOLO en estado activo/visible.
+   Sin esto, al ocultarse las tarjetas heredan el delay y generan un lag
+   visual fantasma antes de que la pestaña cambie. */
+.tarjeta-platillo { transition-delay: 0s; }
 
-/* El resto de tus estilos de .tarjeta-platillo summary, open, etc., se quedan igual... */
+.categoria-content.activo .tarjeta-platillo:nth-child(1) { transition-delay: 0.02s; }
+.categoria-content.activo .tarjeta-platillo:nth-child(2) { transition-delay: 0.05s; }
+.categoria-content.activo .tarjeta-platillo:nth-child(3) { transition-delay: 0.08s; }
+.categoria-content.activo .tarjeta-platillo:nth-child(4) { transition-delay: 0.11s; }
+.categoria-content.activo .tarjeta-platillo:nth-child(5) { transition-delay: 0.14s; }
+.categoria-content.activo .tarjeta-platillo:nth-child(6) { transition-delay: 0.17s; }
+.categoria-content.activo .tarjeta-platillo:nth-child(7) { transition-delay: 0.20s; }
 
-.tarjeta-platillo {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    overflow: hidden; /* Corta el contenido cuando está cerrado */
-    transition: var(--transition-smooth);
-    text-align: left;
-}
-
-/* Estilo para la cabecera del acordeón */
 .tarjeta-platillo summary {
-    padding: 1.2rem 1.5rem;
+    padding: 1.3rem 1.6rem;
     font-size: 1.3rem;
     font-weight: bold;
-    color: var(--color-oro);
+    color: var(--color-primario);
     cursor: pointer;
-    list-style: none; /* Elimina flecha nativa */
+    list-style: none; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -151,133 +253,121 @@ header h1 {
     transition: var(--transition-smooth);
 }
 
-/* Quita la flecha por defecto en navegadores basados en Webkit Safari/Chrome */
-.tarjeta-platillo summary::-webkit-details-marker {
-    display: none;
-}
+.tarjeta-platillo summary::-webkit-details-marker { display: none; }
+.tarjeta-platillo summary:hover { background: rgba(255, 255, 255, 0.03); }
 
-.tarjeta-platillo summary:hover {
-    background: rgba(255, 255, 255, 0.02);
-}
-
-/* Animación de la flecha manual */
 .flecha {
     font-size: 0.9rem;
-    transition: transform 0.3s ease;
-    opacity: 0.7;
+    transition: transform 0.25s ease-out; /* Flecha más rápida */
+    opacity: 0.8;
 }
 
-/* Cuando el detalles está abierto ([open]), rotamos la flecha e iluminamos el fondo */
 .tarjeta-platillo[open] {
-    border-color: rgba(212, 175, 55, 0.3);
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border-color: var(--color-primario);
+    box-shadow: 0 10px 25px var(--shadow-tarjeta);
 }
 
 .tarjeta-platillo[open] .flecha {
     transform: rotate(180deg);
-    color: var(--color-oro);
+    color: var(--color-primario);
 }
 
-/* Bloque contenedor del menú interno */
 .contenido-desplegable {
-    padding: 0 1.5rem 1.5rem 1.5rem;
-    animation: fadeIn 0.4s ease-out;
+    padding: 0 1.6rem 1.6rem 1.6rem;
+    animation: fadeInMenu 0.2s ease-out; /* Despliegue interno del doble de rápido */
 }
 
 .nota-sub {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: normal;
-    opacity: 0.6;
+    opacity: 0.65;
     margin-left: 10px;
 }
 
-/* LISTADO INTERNO DE PLATILLOS */
-.contenido-desplegable ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+.contenido-desplegable ul { list-style: none; }
 
 .contenido-desplegable li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 1.2rem;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border-tarjetas);
+    font-size: 1.25rem;
 }
 .contenido-desplegable li:last-child { border: none; }
 
-.tarjeta-extras summary {
-    color: #e2c074;
-}
+.tarjeta-extras summary { color: var(--color-extras); }
 
-/* ALINEACIÓN TISANAS DOS PRECIOS */
 .header-precios {
     font-size: 0.85rem;
     font-weight: bold;
-    color: var(--color-oro);
-    opacity: 0.8;
+    color: var(--color-primario);
+    opacity: 0.9;
 }
 .col-precio {
-    min-width: 80px;
+    min-width: 85px;
     text-align: right;
 }
 .contenido-desplegable li span:first-child { flex-grow: 1; }
 .contenido-desplegable li span:nth-child(2), 
 .contenido-desplegable li span:nth-child(3) {
-    min-width: 80px;
+    min-width: 85px;
     text-align: right;
     font-weight: 600;
 }
 
-/* ANIMACIÓN INTERNA */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
+@keyframes fadeInMenu {
+    from { opacity: 0; transform: translateY(-4px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* UBICACIÓN */
+/* ==========================================================================
+   6. CONTACTO Y UBICACIÓN
+   ========================================================================== */
 .contacto-ubicacion {
     max-width: 600px;
-    margin: 4rem auto 2rem auto;
-    background: var(--glass-bg);
-    background-color: #e2bf7459;
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    padding: 2rem;
+    margin: 4.5rem auto 2rem auto;
+    background: var(--bg-tarjetas);
+    border: 1px solid var(--border-tarjetas);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
 .contacto-ubicacion h2 {
-    color: var(--color-oro);
-    font-size: 1.8rem;
-    margin-top: 0;
+    color: var(--color-primario);
+    font-size: 1.9rem;
+    margin-bottom: 1rem;
 }
 
 .info-detalles p {
     font-size: 1.2rem;
-    margin: 10px 0;
-    opacity: 0.9;
+    margin: 12px 0;
+    opacity: 0.95;
 }
-.info-detalles a { color: var(--color-crema); text-decoration: none; }
+.info-detalles a { color: var(--color-texto); text-decoration: none; border-bottom: 1px dashed var(--color-primario); }
 
-.contacto-ubicacion button {
+/* CORRECCIÓN: antes apuntaba a button (elemento eliminado del HTML).
+   Ahora apunta a .boton-mapa que es el <a> semánticamente correcto. */
+.boton-mapa {
+    display: inline-block;
     font-family: var(--font-menu);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: bold;
     background: transparent;
-    color: var(--color-oro);
-    border: 2px solid var(--color-oro);
-    padding: 12px 30px;
+    color: var(--color-primario);
+    border: 2px solid var(--color-primario);
+    padding: 14px 36px;
     border-radius: 30px;
     cursor: pointer;
-    margin-top: 1.5rem;
+    margin-top: 1.8rem;
+    text-decoration: none;
     transition: var(--transition-smooth);
 }
 
-.contacto-ubicacion button:hover {
-    background: var(--color-oro);
+.boton-mapa:hover {
+    background: var(--color-primario);
     color: var(--bg-principal);
-    box-shadow: 0 5px 20px rgba(212,175,55,0.4);
+    box-shadow: 0 6px 20px var(--shadow-btn);
+    transform: translateY(-2px);
 }

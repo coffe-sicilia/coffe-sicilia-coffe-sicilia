@@ -9,7 +9,12 @@
 <body>
 
     <header>
-        <h1>Café Sicilia</h1>
+        <div class="selector-temas">
+            <button class="theme-btn activo" data-theme="original">Tradicional</button>
+            <button class="theme-btn" data-theme="profundo">Profundo</button>
+            <button class="theme-btn" data-theme="neon">Ciber-Neón</button>
+        </div>
+        <h1 class="titulo-animado">Café Sicilia</h1>
     </header>
 
     <nav class="barra-pestanas">
@@ -312,18 +317,25 @@
         </section>
     </main>
 
-    <article class="contacto-ubicacion">
+    <!-- section es más correcto que article: no es contenido autónomo reutilizable -->
+    <section class="contacto-ubicacion">
         <div class="info-contenedor">
             <h2>📍 Encuéntranos</h2>
             <div class="info-detalles">
                 <p><strong>Dirección:</strong> San Guillermo 2, Ajusco, Coyoacán, 04300 Ciudad de México, CDMX</p>
                 <p><strong>Teléfono:</strong> <a href="tel:5616129476">56 1612 9476</a></p>
             </div>
-            <a href="https://maps.app.goo.gl/GfM1Gzyq9NCGjoSt8" target="_blank" class="boton-mapa">
-                <button>Ver en Google Maps</button>
+            <!-- <a> wrapping <button> es HTML inválido (interactive content anidado).
+                 Se reemplaza por <a> estilizado directamente como botón -->
+            <a  href="https://maps.app.goo.gl/GfM1Gzyq9NCGjoSt8"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="boton-mapa"
+                aria-label="Ver ubicación de Café Sicilia en Google Maps">
+                Ver en Google Maps
             </a>
         </div>
-    </article>
+    </section>
 
     <script src="script.js"></script>
 </body>
